@@ -51,7 +51,7 @@ connectToDb((err) => {
 
   app.get('/leaderboard', async (req, res) => {
     try {
-      const leaderboard = await User.find().sort({ score: -1 }).limit(10);
+      const leaderboard = await User.find().sort({ score: -1 });
       io.emit('leaderboard', leaderboard);
       res.json(leaderboard);
     } catch (err) {

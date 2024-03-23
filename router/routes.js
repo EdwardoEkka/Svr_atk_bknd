@@ -11,6 +11,7 @@ router.post('/players-log',controller.login);
 router.post('/playerLevel',controller.getPlayerL);
 router.post('/updatePlayerLevel',controller.updatePlayer);
 router.get('/getPlayers',controller.getPlayers);
+router.post('/increasePoints',controller.increasePoints);
 
 
 module.exports=router;

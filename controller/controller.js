@@ -81,6 +81,10 @@ exports.stealTokens = async (req, res, next) => {
           return res.status(404).json({ message: 'Cannot attck yourself' });
         }
 
+        if(player2Data.level>player1Data.level)
+        {
+          return res.status(404).json({ message: 'Cannot attack a server with a higher level than you.' });
+        }
 
         if (!player1Data || !player2Data) {
             return res.status(404).json({ message: 'Server not found' });
@@ -168,5 +172,20 @@ exports.secureDb= async (req, res, next) => {
     }
 };
 
+exports.increasePoints= async (req, res) => {
+  const { username } = req.body;
+    const user = await User.findOne({ username });
+  try {
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      user.tokens = user.tokens + 10;
+      await user.save();
+      res.status(200).json({ message: 'Player level updated successfully' });
+  } catch (error) {
+    console.error('Error increasing points:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
   
